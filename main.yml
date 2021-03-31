@@ -1,0 +1,21 @@
+---
+- hosts: all
+  gather_facts: True
+  connection: network_cli
+
+  vars:
+    password: cisco
+
+  tasks:
+      - name: Set facts
+        set_fact:
+          provider:
+            password: cisco
+
+      - name: run show version on remote devices
+        cisco.ios.ios_command:
+          commands: 
+          - show version
+        register: out
+
+      - debug: var=out
